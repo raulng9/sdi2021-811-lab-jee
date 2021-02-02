@@ -13,6 +13,7 @@
 </head>
 <body>
  <!-- Contenido -->
+<%-- 
 <%
 	Integer contador = (Integer) application.getAttribute("contador");
  
@@ -22,6 +23,11 @@
  	application.setAttribute("contador", contador.intValue() + 1);
 
 %>
+--%>
+
+
+<jsp:useBean id="contador" class="com.uniovi.sdi.Contador" scope="application" />
+<jsp:setProperty name="contador" property="incremento" value="1" />
  
  <!-- Barra de Navegación superior -->
  <nav class="navbar navbar-default">
@@ -32,7 +38,7 @@
  			<li><a href="admin.jsp">Administrar productos</a></li>
  		</ul>	
  		<div class="nav navbar-right">
- 			<%=contador%> Visitas
+ 			<jsp:getProperty name="contador" property="total" />
  		</div>
  	</div>
  </nav>
