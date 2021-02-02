@@ -33,6 +33,7 @@ public class ServletCarrito extends HttpServlet {
 		HttpSession session = request.getSession();
 		HashMap<String,Integer> carrito = (HashMap<String,Integer>) request.getSession().getAttribute("carrito");
 		
+		//Caso en el que no hay un carrito previo, se crea y se inserta en la sesión
 		if(carrito == null) {
 			carrito = new HashMap<String,Integer>();
 			request.getSession().setAttribute("carrito", carrito);
@@ -42,6 +43,12 @@ public class ServletCarrito extends HttpServlet {
 		if(producto != null) {
 			insertarEnCarrito(carrito,producto);
 		}
+		
+		request.setAttribute("paresCarrito", carrito);
+		getServletContext().getRequestDispatcher("/vista-carrito.jsp").forward(request,response);
+		
+		
+		/*
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
@@ -50,6 +57,7 @@ public class ServletCarrito extends HttpServlet {
 		out.println("<BODY>");
 		out.println(carritoEnHTML(carrito)+"<br>");
 		out.println("<a href=\"index.jsp\">Volver</a></BODY></HTML>");
+		*/
 	}
 	
 	
