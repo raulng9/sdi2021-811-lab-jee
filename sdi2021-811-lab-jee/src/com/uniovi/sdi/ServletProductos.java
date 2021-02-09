@@ -29,23 +29,9 @@ public class ServletProductos extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Producto> productosTienda = new LinkedList<Producto>();
-		ObjectContainer db = null;
-		try {
-			db = Db4oEmbedded.openFile("bdProductos");
-			List<Producto> respuesta = db.queryByExample(Producto.class);
-			productosTienda.addAll(respuesta);
-		} finally { 
-			db.close();
-		}
-		
-		for(Producto p : productosTienda) {
-			System.out.println(p.getNombre());
-		}
-		
+		List<Producto> productosTienda = new ProductosService().getProductos();
 		request.setAttribute("productosTienda", productosTienda);
 		getServletContext().getRequestDispatcher("/vista-productos.jsp").forward(request,response);
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
