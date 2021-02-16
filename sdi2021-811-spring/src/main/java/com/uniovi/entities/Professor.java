@@ -23,6 +23,10 @@ public class Professor {
 		this.categoria = categoria;
 	}
 	
+	public Professor() {
+		
+	}
+		
 	public Long getDni() {
 		return dni;
 	}
