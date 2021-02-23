@@ -9,13 +9,13 @@ public class Professor {
 	@Id
 	@GeneratedValue
 	
-	private Long dni;
+	private String dni;
 	private String nombre;
 	private String apellidos;
 	private String categoria;
 	
 	
-	public Professor(Long dni, String nombre, String apellidos, String categoria) {
+	public Professor(String dni, String nombre, String apellidos, String categoria) {
 		super();
 		this.dni = dni;
 		this.nombre = nombre;
@@ -27,10 +27,10 @@ public class Professor {
 		
 	}
 		
-	public Long getDni() {
+	public String getDni() {
 		return dni;
 	}
-	public void setDni(Long dni) {
+	public void setDni(String dni) {
 		this.dni = dni;
 	}
 	public String getNombre() {
