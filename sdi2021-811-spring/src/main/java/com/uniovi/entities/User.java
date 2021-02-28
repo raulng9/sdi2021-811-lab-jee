@@ -38,6 +38,16 @@ public class User {
 	}
 
 
+	public String getRole() {
+		return role;
+	}
+
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+
 	public String getPassword() {
 		return password;
 	}

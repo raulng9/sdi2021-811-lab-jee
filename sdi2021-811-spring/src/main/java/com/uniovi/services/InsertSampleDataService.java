@@ -15,6 +15,9 @@ public class InsertSampleDataService {
 	@Autowired
 	private UsersService usersService;
 	
+	@Autowired
+	private RolesService rolesService;
+	
 	@PostConstruct
 	public void init() {
 		User user1 = new User("99999990A", "Pedro", "Díaz");
@@ -25,12 +28,17 @@ public class InsertSampleDataService {
 		User user6 = new User("99999988F", "Edward", "Núñez");
 		
 		user1.setPassword("123456");
+		user1.setRole(rolesService.getRoles()[0]);
 		user2.setPassword("123456");
+		user2.setRole(rolesService.getRoles()[0]);
 		user3.setPassword("123456");
+		user3.setRole(rolesService.getRoles()[0]);
 		user4.setPassword("123456");
+		user4.setRole(rolesService.getRoles()[1]);
 		user5.setPassword("123456");
+		user5.setRole(rolesService.getRoles()[1]);
 		user6.setPassword("123456");
-
+		user6.setRole(rolesService.getRoles()[2]);
 		
 		
 		Set user1Marks = new HashSet<Mark>() {
