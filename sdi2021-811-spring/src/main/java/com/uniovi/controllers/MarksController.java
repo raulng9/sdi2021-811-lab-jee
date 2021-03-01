@@ -37,11 +37,15 @@ public class MarksController {
 	private AddMarkValidator addMarkValidator;
 
 	@RequestMapping("/mark/list")
-	public String getList(Model model, Principal principal) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String dni = auth.getName();
+	public String getList(Model model, Principal principal,
+			@RequestParam(value = "", required = false) String searchText) {
+		String dni = principal.getName();
 		User user = usersService.getUserByDni(dni);
-		model.addAttribute("markList", marksService.getMarksForUser(user));
+		if (searchText != null && !searchText.isEmpty()) {
+			model.addAttribute("markList", marksService.searchMarksByDescriptionAndNameForUser(searchText, user));
+		} else {
+			model.addAttribute("markList", marksService.getMarksForUser(user));
+		}
 		return "/mark/list";
 	}
 
@@ -104,9 +108,9 @@ public class MarksController {
 		marksService.setMarkResend(true, id);
 		return "redirect:/mark/list";
 	}
-	
-	@RequestMapping(value="/mark/{id}/noresend", method=RequestMethod.GET) 
-	public String setResendFalse(Model model, @PathVariable Long id){
+
+	@RequestMapping(value = "/mark/{id}/noresend", method = RequestMethod.GET)
+	public String setResendFalse(Model model, @PathVariable Long id) {
 		marksService.setMarkResend(false, id);
 		return "redirect:/mark/list";
 	}
