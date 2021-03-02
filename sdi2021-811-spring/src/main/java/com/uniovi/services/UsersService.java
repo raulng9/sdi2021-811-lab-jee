@@ -1,11 +1,15 @@
 package com.uniovi.services;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -53,6 +57,25 @@ public class UsersService {
 	
 	public void editUser(User user) {
 		usersRepository.save(user);
+	}
+	
+	//Page version
+	public Page<User> getUsers(Pageable pageable, User user) {
+		Page<User> users = new PageImpl<User>(new LinkedList<User>());
+		if (user.getRole().equals("ROLE_ADMIN")) {
+			users = usersRepository.findAll(pageable);
+		}
+		return users;
+	}
+	
+
+	public Page<User> searchUsers(Pageable pageable, String searchText, User user) {
+		Page<User> users = new PageImpl<User>(new LinkedList<User>());
+		searchText = "%" + searchText + "%";
+		if (user.getRole().equals("ROLE_ADMIN")) {
+			users = usersRepository.searchUser(pageable, searchText);
+		}
+		return users;
 	}
 
 }
