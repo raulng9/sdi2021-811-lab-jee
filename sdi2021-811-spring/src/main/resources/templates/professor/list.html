@@ -24,7 +24,7 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li class="active"><a href="/professor/list">Ver Profesores</a></li>
-		<li><a href="/professor/add">Agregar Profesor</a></li>
+		<li><a sec:authorize="hasRole('ROLE_ADMIN')" href="/professor/add">Agregar Profesor</a></li>
         <li><a href="/professor/filter">Filtrar</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -59,9 +59,9 @@
 	    <td th:text="${professor.nombre}"> A</td>
 	    <td th:text="${professor.apellidos}"> A</td>
 	    <td th:text="${professor.categoria}"> A</td>
-	    <td><a th:href="${'/professor/detail/' + professor.dni}">detalles</a></td>
-	    <td><a th:href="${'/professor/edit/' + professor.dni}">modificar</a></td>
-	    <td><a th:href="${'/professor/delete/' + professor.dni}">eliminar</a></td>
+	    <td><a sec:authorize="hasAnyRole('ROLE_PROFESSOR','ROLE_ADMIN')"th:href="${'/professor/detail/' + professor.id}">detalles</a></td>
+	    <td><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${'/professor/edit/' + professor.id}">modificar</a></td>
+	    <td><a sec:authorize="hasRole('ROLE_ADMIN')" th:href="${'/professor/delete/' + professor.id}">eliminar</a></td>
 	  </tr>
 	</tbody>
   </table>

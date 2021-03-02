@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.uniovi.entities.Mark;
+import com.uniovi.entities.Professor;
 import com.uniovi.entities.User;
 
 @Service
@@ -21,6 +22,9 @@ public class InsertSampleDataService {
 	@Autowired
 	private RolesService rolesService;
 	
+	@Autowired
+	private ProfessorService professorService;
+	
 	@PostConstruct
 	public void init() {
 		User user1 = new User("99999990A", "Pedro", "Díaz");
@@ -29,6 +33,20 @@ public class InsertSampleDataService {
 		User user4 = new User("99999993D", "Marta", "Almonte");
 		User user5 = new User("99999977E", "Pelayo", "Valdes");
 		User user6 = new User("99999988F", "Edward", "Núñez");
+		
+		Professor prof1 = new Professor("99999999A", "Profesor1", "Apellidos1","Categoria1");
+		Professor prof2 = new Professor("99999999B", "Profesor2", "Apellidos2","Categoria2");
+		Professor prof3 = new Professor("99999999C", "Profesor3", "Apellidos3","Categoria3");
+		Professor prof4 = new Professor("99999999D", "Profesor4", "Apellidos4","Categoria4");
+		Professor prof5 = new Professor("99999999E", "Profesor5", "Apellidos5","Categoria5");
+
+		professorService.addProfessor(prof1);
+		professorService.addProfessor(prof2);
+		professorService.addProfessor(prof3);
+		professorService.addProfessor(prof4);
+		professorService.addProfessor(prof5);
+
+		
 		
 		user1.setPassword("123456");
 		user1.setRole(rolesService.getRoles()[0]);
