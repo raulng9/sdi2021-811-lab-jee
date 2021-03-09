@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.Select;
 import com.uniovi.tests.util.SeleniumUtils;
 
 public class PO_PrivateView extends PO_NavView {
+	
 	static public void fillFormAddMark(WebDriver driver, int userOrder, String descriptionp, String scorep) {
 		// Esperamos 5 segundos a que carge el DOM porque en algunos equipos falla
 		SeleniumUtils.esperarSegundos(driver, 5);
@@ -24,6 +25,28 @@ public class PO_PrivateView extends PO_NavView {
 		By boton = By.className("btn");
 		driver.findElement(boton).click();
 	}
+	
+	
+	static public void fillFormAddProfessor(WebDriver driver, String dniProf, String nombreProf, String apellidosProf, String categoriaProf) {
+		// Esperamos 5 segundos a que carge el DOM porque en algunos equipos falla
+		SeleniumUtils.esperarSegundos(driver, 3);
+		// Rellenamos los datos de un profesor a añadir
+		WebElement dni = driver.findElement(By.name("dni"));
+		dni.clear();
+		dni.sendKeys(dniProf);
+		WebElement nombre = driver.findElement(By.name("nombre"));
+		nombre.click();
+		nombre.clear();
+		nombre.sendKeys(nombreProf);
+		WebElement apellidos = driver.findElement(By.name("apellidos"));
+		apellidos.clear();
+		apellidos.sendKeys(apellidosProf);
+		WebElement cat = driver.findElement(By.name("categoria"));
+		cat.clear();
+		cat.sendKeys(categoriaProf);
+		By boton = By.className("btn");
+		driver.findElement(boton).click();
+	}
 
 	// Método para simplificar login
 
@@ -31,7 +54,7 @@ public class PO_PrivateView extends PO_NavView {
 		// Vamos al formulario de logueo.
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		// Rellenamos el formulario
-		PO_LoginView.fillForm(driver, "99999990A", "123456");
+		PO_LoginView.fillForm(driver, username, password);
 		// Comprobamos que entramos en la pagina privada de Alumno
 		PO_View.checkElement(driver, "text", "Notas del usuario");
 	}
@@ -40,10 +63,31 @@ public class PO_PrivateView extends PO_NavView {
 		// Vamos al formulario de logueo.
 		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
 		// Rellenamos el formulario
-		PO_LoginView.fillForm(driver, "99999993D", "123456");
+		PO_LoginView.fillForm(driver, username, password);
 		// Comprobamos que entramos en la pagina privada del Profesor
-		PO_View.checkElement(driver, "text", "99999993D");
+		PO_View.checkElement(driver, "text", username);
 	}
+	
+	static public void loginAsAdministrator(WebDriver driver, String username, String password) {
+		// Vamos al formulario de logueo.
+		PO_HomeView.clickOption(driver, "login", "class", "btn btn-primary");
+		// Rellenamos el formulario
+		PO_LoginView.fillForm(driver, username, password);
+		// Comprobamos que entramos en la pagina privada del Profesor
+		PO_View.checkElement(driver, "text", username);
+	}
+	
+	static public void loginAsAdministratorIndirectly(WebDriver driver, String username, String password) {
+		// Rellenamos el formulario
+		PO_LoginView.fillForm(driver, username, password);
+		// Comprobamos que entramos en la pagina privada del Profesor
+		PO_View.checkElement(driver, "text", username);
+	}
+	
+	static public void loginAsAdminDirectly(WebDriver driver, String username, String password) {
+		PO_LoginView.fillForm(driver, username, password);
+	}
+
 
 	// Método para ver detalles de nota
 	// Método para eliminar una nota (última o con un texto en concreto)
